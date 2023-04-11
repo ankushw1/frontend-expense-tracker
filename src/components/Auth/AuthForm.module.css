@@ -8,6 +8,7 @@
   padding: 1rem;
   text-align: center;
   color: white;
+  cursor: pointer;
 }
 
 .auth h1 {
@@ -46,6 +47,7 @@
   padding: 0.5rem 2.5rem;
   border: 1px solid #9f5ccc;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .btn button:hover {

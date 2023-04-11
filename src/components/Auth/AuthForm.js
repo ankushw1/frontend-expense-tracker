@@ -70,9 +70,9 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.idToken)
+        authCtx.login(data.idToken, enteredEmail)
         history.replace('/')
-      })
+      })      
       .catch((err) => {
         alert(err.message)
       })
