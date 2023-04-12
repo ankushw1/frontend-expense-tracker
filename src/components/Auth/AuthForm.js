@@ -31,22 +31,11 @@ const AuthForm = () => {
 
 
     setIsLoading(true)
-    let url;
+
 
     if(isLogin){
 
-      url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBEeTJNjYSv2U4nLEusfH345rXuo98Bn14'
-
-
-    }
-    else{
-
-      url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBEeTJNjYSv2U4nLEusfH345rXuo98Bn14'
-
-
-    }
-    fetch(
-      url,{
+      fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBEeTJNjYSv2U4nLEusfH345rXuo98Bn14',{
         method:'POST',
         body:JSON.stringify({
           email:enteredEmail,
@@ -71,12 +60,50 @@ const AuthForm = () => {
       })
       .then((data) => {
         authCtx.login(data.idToken, enteredEmail)
+        alert('Login successfully')
+
         history.replace('/')
       })      
       .catch((err) => {
         alert(err.message)
       })
-      }
+
+
+    }
+    else{
+      fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBEeTJNjYSv2U4nLEusfH345rXuo98Bn14',{
+        method:'POST',
+        body:JSON.stringify({
+          email:enteredEmail,
+          password:enteredPassword,
+          returnSecureToken:true
+        }),
+        headers:{
+          'content-type':"application/json"
+        }
+      })
+      .then((res) => {
+        setIsLoading(false)
+        if(res.ok){
+          return res.json();
+        }else{
+          return res.json().then((data) => {
+            let errorMessage = 'Authentication failed';
+            
+            throw new Error(errorMessage)
+          })
+        }
+      })
+      .then((data) => {
+        alert('Account created successfully')
+      })      
+      .catch((err) => {
+        alert(err.message)
+      })
+
+
+    }
+  }
     
 
 

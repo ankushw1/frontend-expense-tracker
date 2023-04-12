@@ -1,10 +1,14 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 
 
 
 const ExpenseForm = () => {
+
+
+
+
   const [expenses, setExpenses] = useState([]);
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDescription, setEnteredDescription] = useState("");
@@ -101,6 +105,10 @@ const ExpenseForm = () => {
   }
 
 
+  const totalExpenses = expenses.reduce((total,expense) => total + parseInt(expense.amount),0)
+  
+
+
   return (
     <>
       <div
@@ -160,6 +168,24 @@ const ExpenseForm = () => {
             }}
           />
         </form>
+
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
+
+        <h2>Total expenses : {totalExpenses}</h2>
+
+        {totalExpenses > 10000 && (
+          <button style={{
+            padding: "1px",
+            borderRadius: "10px",
+            margin: "1px",
+            color: "blue",
+            backgroundColor: "green",
+            cursor: "pointer",
+            height:"50px"
+          }} onClick={() => alert('Pay 10000 to Activate Premium')}>Activate Premium</button>
+        )}
+
+        </div>
 
         {expenses.length > 0 && (
           <div>
