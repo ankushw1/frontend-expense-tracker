@@ -6,6 +6,8 @@ import AuthContext from "../../store/auth-context";
 const MainNavigation = () => {
   const authCtx = useContext(AuthContext);
 
+  const Useremail = localStorage.getItem("mail");
+
   const logoutHandler = () => {
     authCtx.logout();
   };
@@ -35,7 +37,21 @@ const MainNavigation = () => {
 
           {isLoggedIn && (
             <li>
+              <span style={{ color: "yellow", fontSize: "1.5em" }}>
+                {Useremail}
+              </span>
+            </li>
+          )}
+
+          {isLoggedIn && (
+            <li>
               <Link to="/profile">Profile</Link>
+            </li>
+          )}
+
+          {isLoggedIn && (
+            <li>
+              <Link to="/forgot">Change Passowrd</Link>
             </li>
           )}
 

@@ -14,7 +14,6 @@ const ExpenseForm = () => {
   const [enteredDescription, setEnteredDescription] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Category");
 
-
   const Useremail = localStorage.getItem("mail");
   const ChangesEMail = Useremail.replace("@", "").replace(".", "");
 
@@ -25,7 +24,7 @@ const ExpenseForm = () => {
 
   useEffect(() => {
     axios
-    .get(`https://react-expense-tracker-77f1b-default-rtdb.firebaseio.com/expenses/${ChangesEMail}.json`)
+    .get(`https://expense-tracker-dacdc-default-rtdb.firebaseio.com/expenses/${ChangesEMail}.json`)
     .then((response) => {
       const fetchedExpenses = []
       for(let key in response.data){
@@ -56,7 +55,7 @@ const ExpenseForm = () => {
 
 
     axios
-    .post(`https://react-expense-tracker-77f1b-default-rtdb.firebaseio.com/expenses/${ChangesEMail}.json`,{
+    .post(`https://expense-tracker-dacdc-default-rtdb.firebaseio.com/expenses/${ChangesEMail}.json`,{
       amount:enteredEmail,
       description:enteredDes,
       category:enteredCategory
@@ -95,7 +94,7 @@ const ExpenseForm = () => {
 
   const handleDelete = (id) => {
     axios
-    .delete(`https://react-expense-tracker-77f1b-default-rtdb.firebaseio.com/expenses/${ChangesEMail}/${id}.json`)
+    .delete(`https://expense-tracker-dacdc-default-rtdb.firebaseio.com/expenses/${ChangesEMail}/${id}.json`)
     .then(() => {
       setExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== id))
     })
@@ -106,6 +105,7 @@ const ExpenseForm = () => {
 
 
   const totalExpenses = expenses.reduce((total,expense) => total + parseInt(expense.amount),0)
+  localStorage.setItem('exp',totalExpenses)
   
 
 
@@ -151,6 +151,7 @@ const ExpenseForm = () => {
             <option value="Food">Food</option>
             <option value="Shopping">Shopping</option>
             <option value="Travel">Travel</option>
+            <option value="Rent">Rent</option>
             <option value="Other">Other</option>
           </select>
           <input

@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import AuthContext from "./store/auth-context";
 import ExpenseForm from "./components/Expenseform/ExpenseForm";
 import { useContext } from "react";
+import ForgotPasswordProfile from "./components/forgotPassword/ForgotPasswordProfile";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -31,6 +32,11 @@ function App() {
 
           <Route path="/profile">
           {authCtx.isLoggedIn && <UserProfile/>}
+            {!authCtx.isLoggedIn && <Redirect to="/auth" /> }
+          </Route>
+
+          <Route path="/forgot">
+          {authCtx.isLoggedIn && <ForgotPasswordProfile/>}
             {!authCtx.isLoggedIn && <Redirect to="/auth" /> }
           </Route>
 
